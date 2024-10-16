@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="qr">
+     <p id="title"></p> <!-- Это для проверки того, что QR код меняется. Можно удалить -->
+  </div>
+  <script>
+    let userDeviceArray = [
+        {device: 'Android', platform: /Android/},
+        {device: 'iPhone', platform: /iPhone/},
+        {device: 'iPad', platform: /iPad/},
+        {device: 'Symbian', platform: /Symbian/},
+        {device: 'Windows Phone', platform: /Windows Phone/},
+        {device: 'Tablet OS', platform: /Tablet OS/},
+        {device: 'Linux', platform: /Linux/},
+        {device: 'Windows', platform: /Windows NT/},
+        {device: 'Macintosh', platform: /Macintosh/}
+    ];
+
+    let platform = navigator.userAgent;
+
+    function getPlatform() {
+        for (let i in userDeviceArray) {
+            if (userDeviceArray[i].platform.test(platform)) {
+                return userDeviceArray[i].device;
+            }
+        }
+        return 'Неизвестная платформа!' + platform;
+    }
+
+    let title = document.getElementById("title"); // Для проверки
+    let qrBlock = document.getElementById("qr");
+    let img = document.createElement("img");
+    img.width = 80; // Ширина кода
+    img.height = 80; // Высота кода
+    img.alt = "QR code"; // Текст, если QR код не загрузится
+
+    if(getPlatform() ===  ("iPhone" || "iPad" || "Macintosh")) {
+      title.textContent = "IOS"; // Для проверки
+      img.src = "http://qrcoder.ru/code/?https%3A%2F%2Fapps.apple.com%2Fru%2Fapp%2F%2525D0%2525BF%2525D...0%2525B6%2525D0&2&0";
+      qr.appendChild(img);
+    } else if(getPlatform() === "Android") {
+      title.textContent = "Android"; // Для проверки
+      img.src = "http://qrcoder.ru/code/?https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdet....paysphera&2&0";
+      qr.appendChild(img);
+    } else {
+      title.textContent = "Не Android, и не IOS, вывод AppGallery"; // Для проверки
+      img.src = "http://qrcoder.ru/code/?https%3A%2F%2Fappgallery.huawei.com%2F%23%2Fapp%2FC110240081&2&0";
+      qr.appendChild(img);
+    }
+  </script>
+</body>
+</html>
