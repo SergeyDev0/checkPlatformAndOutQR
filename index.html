@@ -40,17 +40,27 @@
     img.height = 80; // Высота кода
     img.alt = "QR code"; // Текст, если QR код не загрузится
 
-    if(getPlatform() ===  ("iPhone" || "iPad" || "Macintosh")) {
-      title.textContent = "IOS"; // Для проверки
+    if((getPlatform() ===  "iPhone") || (getPlatform() === "iPad") || (getPlatform() === "Macintosh")) {
+      // title.textContent = "IOS"; // Для проверки
+      title.textContent = getPlatform();
       img.src = "http://qrcoder.ru/code/?https%3A%2F%2Fapps.apple.com%2Fru%2Fapp%2F%2525D0%2525BF%2525D...0%2525B6%2525D0&2&0";
       qr.appendChild(img);
     } else if(getPlatform() === "Android") {
-      title.textContent = "Android"; // Для проверки
-      img.src = "http://qrcoder.ru/code/?https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdet....paysphera&2&0";
-      qr.appendChild(img);
+      let userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      if (/huawei/i.test(userAgent)) {
+        title.textContent = "Huawei"; // Для проверки
+        img.src = "http://qrcoder.ru/code/?https%3A%2F%2Fappgallery.huawei.com%2F%23%2Fapp%2FC110240081&2&0";
+        qr.appendChild(img);
+      } else {
+      title.textContent = getPlatform();
+      // title.textContent = "Google"; // Для проверки
+        img.src = "http://qrcoder.ru/code/?https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdet....paysphera&2&0";
+        qr.appendChild(img);
+      }
     } else {
-      title.textContent = "Не Android, и не IOS, вывод AppGallery"; // Для проверки
-      img.src = "http://qrcoder.ru/code/?https%3A%2F%2Fappgallery.huawei.com%2F%23%2Fapp%2FC110240081&2&0";
+      title.textContent = getPlatform();
+      // title.textContent = "Не Android, и не IOS, вывод Google"; // Для проверки
+      img.src = "http://qrcoder.ru/code/?https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdet....paysphera&2&0";
       qr.appendChild(img);
     }
   </script>
